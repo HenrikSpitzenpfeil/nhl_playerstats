@@ -36,6 +36,9 @@ def fetchPlayerIds(season_id: int) -> list:
     return list(all_player_ids)
 
 def skater_season_stats(stat_type: str, player_id: int, season_id: int) -> str:
+    '''stat_type needs to be one of 'summary', 'goalsForAgainst', 'realtime', 'penalties', 'shottype'
+      season_id needs to be formatted like 20232024 for 2023-2024 season'''
+    
     stat_types = ['summary', 'goalsForAgainst', 'realtime', 'penalties', 'shottype']
     if stat_type in stat_types:
       url = f'https://api.nhle.com/stats/rest/en/skater/{stat_type}?cayenneExp=playerId={player_id}%20and%20seasonId={season_id}'
