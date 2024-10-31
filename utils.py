@@ -12,7 +12,7 @@ def listToCsv(list : list, path: os.PathLike ):
 def csvTolist(path: os.PathLike) -> list:
     with open(path, "r") as file:
         reader = csv.reader(file)
-        return [row[0] for row in reader]
+        return [int(row[0]) for row in reader]
     
 def fetchPlayerIds(season_id: int) -> list:
     all_player_ids = set()
