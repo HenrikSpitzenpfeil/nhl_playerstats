@@ -4,6 +4,7 @@ import requests
 from consts import team_abbreviations
 
 def listToCsv(list : list, path: os.PathLike ):
+    ''' Takes a list and stores it to the specified path in csv format.'''
     with open(path, "w", newline="") as file:
         writer = csv.writer(file)
         for element in list:
@@ -15,6 +16,8 @@ def csvTolist(path: os.PathLike) -> list:
         return [int(row[0]) for row in reader]
     
 def fetchPlayerIds(season_id: int) -> list:
+    ''' Get all listed players for the specified season from the NHL API.
+    season_id needs to be formatted like 20232024 for 2023-2024 season.'''
     all_player_ids = set()
 
     for team_abbr in team_abbreviations:
@@ -37,7 +40,7 @@ def fetchPlayerIds(season_id: int) -> list:
 
 def skater_season_stats(stat_type: str, player_id: int, season_id: int) -> str:
     '''stat_type needs to be one of 'summary', 'goalsForAgainst', 'realtime', 'penalties', 'shottype'
-      season_id needs to be formatted like 20232024 for 2023-2024 season'''
+       season_id needs to be formatted like 20232024 for 2023-2024 season'''
     
     stat_types = ['summary', 'goalsForAgainst', 'realtime', 'penalties', 'shottype']
     if stat_type in stat_types:
