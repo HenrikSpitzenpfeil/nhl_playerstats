@@ -49,3 +49,15 @@ def skater_season_stats(stat_type: str, player_id: int, season_id: int) -> str:
       return responnse.json()
     else:
        raise ValueError(f'stat_type needs to be one of {str(stat_types)}')
+    
+def get_team_stats(stat_type: str, season):
+    '''Fetch the stats of a given type for all teams in the given season'''
+
+    stat_types = ['summary', 'penalties', 'realtime', 'shottype']
+    if stat_type not in stat_types:
+        raise ValueError(f"Invalid stat type. Must be one of {stat_types}")
+    
+    url = f"https://api.nhle.com/stats/rest/en/team/{stat_type}"
+    payload  = {"cayenneExp": f"gameTypeId=2 and seasonId<={season} and seasonId>={season}"}
+    response = requests.get(url, params=payload)
+    return response.json()['data']
